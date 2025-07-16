@@ -1,0 +1,28 @@
+artifact_path: /projects/mlops-zoomcamp/02-experiment-tracking/homework/mlruns/6/models/m-9139cb1850c94f39bb1d51af3a8fe760/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.9.12
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.0.2
+is_signature_from_type_hint: false
+mlflow_version: 3.1.1
+model_id: m-9139cb1850c94f39bb1d51af3a8fe760
+model_size_bytes: 2167018
+model_uuid: m-9139cb1850c94f39bb1d51af3a8fe760
+prompts: null
+run_id: fefdcbaf314943029e31bffa2504fede
+signature:
+  inputs: '[{"type": "tensor", "tensor-spec": {"dtype": "float64", "shape": [-1, 5702]}}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "float64", "shape": [-1]}}]'
+  params: null
+type_hint_from_example: false
+utc_time_created: '2025-07-16 14:38:37.015107'
