@@ -6,7 +6,7 @@ import mlflow
 from mlflow.entities import ViewType
 from mlflow.tracking import MlflowClient
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import root_mean_squared_error
 
 HPO_EXPERIMENT_NAME = "random-forest-hyperopt2"
 EXPERIMENT_NAME = "random-forest-best-models2"
@@ -36,9 +36,9 @@ def train_and_log_model(data_path, params):
         rf.fit(X_train, y_train)
 
         # Evaluate model on the validation and test sets
-        val_rmse = mean_squared_error(y_val, rf.predict(X_val), squared=False)
+        val_rmse = root_mean_squared_error(y_val, rf.predict(X_val), squared=False)
         mlflow.log_metric("val_rmse", val_rmse)
-        test_rmse = mean_squared_error(y_test, rf.predict(X_test), squared=False)
+        test_rmse = root_mean_squared_error(y_test, rf.predict(X_test), squared=False)
         mlflow.log_metric("test_rmse", test_rmse)
 
         # Log model
@@ -82,6 +82,8 @@ def run_register_model(data_path: str, top_n: int):
         order_by=["metrics.rmse ASC"]
     )[0]
 
+    # print test_rmse
+    print(f"Best test_rmse: {best_run.data.metrics["test_rmse"]}")
     # Register the best model
     model_uri = f"runs:/{best_run.info.run_id}/models"
     mlflow.register_model(model_uri, 'random-forest-best-models')    
