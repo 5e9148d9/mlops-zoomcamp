@@ -16,7 +16,7 @@ def read_data(filename):
 
 
 def run(year, month):
-    df = read_data('https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2023-03.parquet')
+    df = read_data(f'https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_{year:04d}-{month:02d}.parquet')
 
     with open('model.bin', 'rb') as f_in:
         dv, model = pickle.load(f_in)

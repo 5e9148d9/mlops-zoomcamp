@@ -1,6 +1,6 @@
 In order to create pipenv it is better to run docker image and generate environment inside.
 ```
-run -v "/tmp/04:/app2" -it --rm --entrypoint=bash agrigorev/zoomcamp-model:mlops-2024-3.10.13-slim
+docker run -v "/tmp/04:/app2" -it --rm --entrypoint=bash agrigorev/zoomcamp-model:mlops-2024-3.10.13-slim
 cd /app2
 pipenv install scikit-learn==1.5.0 pandas pyarrow
 ```
