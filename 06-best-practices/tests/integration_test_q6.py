@@ -6,7 +6,17 @@ from datetime import datetime
 def dt(hour, minute, second=0):
     return datetime(2023, 1, 1, hour, minute, second)
 
-def execute_batch():
+def prepare_data(df, categorical):
+    df['duration'] = df.tpep_dropoff_datetime - df.tpep_pickup_datetime
+    df['duration'] = df.duration.dt.total_seconds() / 60
+
+    df = df[(df.duration >= 1) & (df.duration <= 60)].copy()
+
+    df[categorical] = df[categorical].fillna(-1).astype('int').astype('str')
+
+    return df
+
+def save_read_data():
     # Test input
     data = [
         (None, None, dt(1, 1), dt(1, 10)),
@@ -16,6 +26,9 @@ def execute_batch():
     ]
     columns = ['PULocationID', 'DOLocationID', 'tpep_pickup_datetime', 'tpep_dropoff_datetime']
     df = pd.DataFrame(data, columns=columns)
+
+    categorical = ['PULocationID', 'DOLocationID']
+    actual_df = prepare_data(df, categorical)[categorical + ['duration']]
 
     options = {
         'client_kwargs': {
@@ -38,4 +51,4 @@ def execute_batch():
     subprocess.run([ "python", "batch.py", "2023", "1" ], env=env_vars, check=True)    
     
 if __name__ == "__main__":
-    execute_batch()
+    save_read_data()
